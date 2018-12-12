@@ -21,29 +21,28 @@
 			var h = s.availHeight;
 			var w = s.availWidth;
 			var canvas = document.getElementById("canvas");
-			canvas.width = "1980";
-			canvas.height ="1080";
+			canvas.width = w;
+			canvas.height =h;
 			var ctx = canvas.getContext("2d");
-
-			var cols = 1980;
-			var fontSize = 14;
+			var fontSize = 20;
+			var cols = Math.floor(w/fontSize);
 			var drop = [];
 			var color = ["#FC0000","#FC05E1","#A107FD","#06A4FA","#FFA500","#74FC07","#573A70","#498B88"];
-			
+			var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			for(var i = 0;i<cols;i++){
 				drop.push(0);
 			}
 			function drawText(){
-				var colorPick = Math.round(Math.random()*color.length)-1;
 				ctx.fillStyle="rgba(0,0,0,0.05)";
-				ctx.fillRect(0,0,1980,1080);
-				ctx.fillStyle=color[colorPick];
-
-				ctx.font = "600 "+fontSize+"px 微软雅黑";
+				ctx.fillRect(0,0,w,h);
+				ctx.font = "600 "+fontSize+"px 楷体";
 				for(var i = 0;i<cols;i++){
+					var colorPick = Math.round(Math.random()*color.length)-1;
+					ctx.fillStyle=color[colorPick];
+					var strPick = Math.round(Math.random()*str.length)-1;
 					var x = i*fontSize;
 					var y = drop[i]*fontSize;
-					ctx.fillText("彬",x,y);
+					ctx.fillText(str.charAt(strPick),x,y);
 					drop[i]++;
 					if(y>h&&Math.random()>0.99){
 						drop[i]=0;
@@ -52,8 +51,6 @@
 			}
 			setInterval(drawText, 50,false);
 		}
-
-
 	</script>
 </head>
 <body>
